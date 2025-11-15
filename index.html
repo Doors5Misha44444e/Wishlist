@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+      <title>Wishlist</title>
+      <link rel ="stylesheet" href="style.css">
+    </head>
+<body>
+  
+  <h1>🎁 Wishlist</h1>
+
+  <form id="wish-form">
+    <input type="text" id="wish-name" placeholder="Що ти хочеш?" required />
+    <input type="url" id="wish-link" placeholder="Посилання (необов'язково)" />
+    <input type="number" id="wish-price" placeholder="Ціна (грн)" min="0" />
+    <button type="submit">Додати бажання</button>
+  </form>
+
+  <h2>Мій список бажань:</h2>
+
+  <div id="wish-list-container">
+    <!-- Тут будуть додаватися бажання на JavaScript -->
+  </div>
+  <script defer src="script.js"></script>
+
+</body>
+
+</html>
