@@ -1,27 +1,165 @@
 <!DOCTYPE html>
 <html lang="uk">
-    <head>
-      <title>Wishlist</title>
-      <link rel ="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 Wishlist - Космічний Список Бажань</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  
-  <h1>🎁 Wishlist</h1>
+ 
+    <div class="cosmic-bg">
+        <div class="floating-particle" style="left: 10%; animation-delay: 0s;">⭐</div>
+        <div class="floating-particle" style="left: 30%; animation-delay: 3s;">🎁</div>
+        <div class="floating-particle" style="left: 50%; animation-delay: 6s;">💫</div>
+        <div class="floating-particle" style="left: 70%; animation-delay: 9s;">✨</div>
+        <div class="floating-particle" style="left: 90%; animation-delay: 12s;">🌟</div>
+    </div>
+    
+    
+    <div class="custom-cursor" id="custom-cursor">✨</div>
+    
+    <div class="container">
+       
+        <header class="header-glass">
+            <div class="logo-3d">🎁</div>
+            <h1 class="main-title">Wishlist</h1>
+            <p class="subtitle">Створи свій космічний список мрій ✨</p>
+        </header>
 
-  <form id="wish-form">
-    <input type="text" id="wish-name" placeholder="Що ти хочеш?" required />
-    <input type="url" id="wish-link" placeholder="Посилання (необов'язково)" />
-    <input type="number" id="wish-price" placeholder="Ціна (грн)" min="0" />
-    <button type="submit">Додати бажання</button>
-  </form>
+       
+        <div id="auth-section" class="auth-glass">
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">🔐 Вхід</button>
+                <button class="auth-tab" data-tab="register">🚀 Реєстрація</button>
+            </div>
+            
+            <div id="login-form" class="auth-form">
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="login-username" placeholder="Твій космічний логін..." required />
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="login-password" placeholder="Твій секретний код..." required />
+                </div>
+                <label class="remember-me">
+                    <input type="checkbox" id="remember-me" />
+                    <span class="checkmark"></span>
+                    <span class="remember-text">Запам'ятати мене</span>
+                </label>
+                <button class="auth-btn neon-btn" onclick="loginUser()">🔐 Увійти в систему</button>
+            </div>
+            
+            <div id="register-form" class="auth-form hidden">
+                <div class="input-group">
+                    <span class="input-icon">🚀</span>
+                    <input type="text" id="register-username" placeholder="Придумай космічне ім'я..." required />
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">⚡</span>
+                    <input type="password" id="register-password" placeholder="Створи захисний пароль..." required />
+                </div>
+                <button class="auth-btn neon-btn" onclick="registerUser()">🚀 Створити акаунт</button>
+            </div>
+        </div>
 
-  <h2>Мій список бажань:</h2>
+        <div id="user-section" class="user-glass hidden">
+            <div class="user-info">
+                <span class="user-avatar">🚀</span>
+                <span id="current-user" class="user-name"></span>
+                <button class="logout-btn" onclick="logoutUser()">🚪 Вийти</button>
+            </div>
+        </div>
 
-  <div id="wish-list-container">
-    <!-- Тут будуть додаватися бажання на JavaScript -->
-  </div>
-  <script defer src="script.js"></script>
+        <div id="main-nav" class="nav-glass hidden">
+            <button class="nav-tab active" data-tab="my-wishes">⭐ Мої бажання</button>
+            <button class="nav-tab" data-tab="friends">👥 Друзі</button>
+            <button class="nav-tab" data-tab="chat">💬 Чат</button>
+        </div>
 
+        <form id="wish-form" class="wish-glass hidden">
+            <div class="input-group">
+                <span class="input-icon">⭐</span>
+                <input type="text" id="wish-name" placeholder="Що ти хочеш? Напиши свою мрію..." required />
+            </div>
+            <div class="input-group">
+                <span class="input-icon">🔗</span>
+                <input type="url" id="wish-link" placeholder="Посилання на товар (необов'язково)" />
+            </div>
+            <div class="input-group">
+                <span class="input-icon">💰</span>
+                <input type="number" id="wish-price" placeholder="Ціна в гривнях" min="0" />
+            </div>
+            <button type="submit" class="add-btn neon-btn">
+                <span>✨ Додати бажання</span>
+            </button>
+        </form>
+
+        <section id="wish-section" class="wish-section-glass hidden">
+            <h2 class="section-title">📋 Космічний список:</h2>
+            <div class="counter" id="wish-counter">🌌 Поки порожньо...</div>
+            <div id="wish-list-container" class="wish-grid">
+                <div class="empty-state">
+                    <div class="empty-icon">🌠</div>
+                    <p>Додай своє перше космічне бажання!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="friends-section" class="wish-section-glass hidden">
+            <h2 class="section-title">👥 Космічні друзі</h2>
+            <div class="friends-container" id="friends-container">
+                <div class="empty-state">
+                    <div class="empty-icon">🚀</div>
+                    <p>Знайди друзів у космосі!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="chat-section" class="wish-section-glass hidden">
+            <h2 class="section-title">💬 Космічний чат</h2>
+            <div class="chat-header" id="chat-header">
+                <p>Обери друга для спілкування</p>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+            </div>
+            <div class="chat-input-group hidden" id="chat-input-group">
+                <input type="text" id="message-input" placeholder="Напиши повідомлення..." />
+                <button class="send-btn" onclick="sendMessage()">📤</button>
+            </div>
+        </section>
+    </div>
+    
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content glass-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">✏️ Редагувати бажання</h3>
+                <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-icon">✏️</span>
+                    <input type="text" id="edit-name" placeholder="Назва бажання..." required />
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">🔗</span>
+                    <input type="url" id="edit-link" placeholder="Посилання..." />
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">💰</span>
+                    <input type="number" id="edit-price" placeholder="Ціна в грн" min="0" />
+                </div>
+                <div class="modal-actions">
+                    <button class="save-btn neon-btn" onclick="saveEdit()">💾 Зберегти зміни</button>
+                    <button class="cancel-btn" onclick="closeEditModal()">❌ Скасувати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="confetti-container" id="confetti"></div>
+    
+    <script defer src="script.js"></script>
 </body>
-
 </html>
